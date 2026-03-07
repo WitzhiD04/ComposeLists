@@ -18,22 +18,43 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.example.taller1.ui.theme.greenColor
+import androidx.compose.foundation.clickable
+import android.net.Uri
+import android.content.Intent
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import com.example.taller1.utils.InfoUser
+
+@Composable
+fun Llamada (user: User) {
+    val ctx = LocalContext.current
+    Text(
+        stringResource(R.string.t_lefono, user.celular),
+        color = greenColor,
+        modifier = Modifier.clickable {
+            val intent = Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:${user.celular}")
+            }
+            ctx.startActivity(intent)
+
+        }
+    )
+}
 
 @Composable
 fun UserText(user: User, modifier: Modifier) {
+    val phoneNumber by remember { mutableStateOf(user.celular) }
     Column(
         modifier = modifier,
         horizontalAlignment = CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(stringResource(R.string.empresa2, user.company.name))
-        Text("Télefono: ${user.celular}")
-        Text(stringResource(R.string.email, user.mail))
-        Text(stringResource(R.string.edad, user.edad))
-        Text(stringResource(R.string.altura, user.altura))
-        Text(stringResource(R.string.peso, user.peso))
-        Text(stringResource(R.string.universidad, user.universidad))
+        InfoUser(user = user)
     }
 }
 

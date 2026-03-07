@@ -12,4 +12,6 @@
     <string name="peso">Peso: %1$s</string>
     <string name="universidad">Universidad: %1$s</string>
     <string name="fullname">%1$s %2$s</string>
+    <string name="t_lefono">Télefono: %1$s</string>
+    <string name="fullnam">%1$s %2$s</string>
 </resources>

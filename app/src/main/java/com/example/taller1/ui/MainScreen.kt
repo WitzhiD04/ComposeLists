@@ -26,6 +26,7 @@ import com.example.taller1.utils.PerfilImage
 import com.example.taller1.utils.imagenes
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 
@@ -37,33 +38,24 @@ fun UserItem(user: User, onUserClick: (User, Int) -> Unit, modifier: Modifier = 
         modifier = modifier.clickable { onUserClick(user, imagenAleatoria)},
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            PerfilImage(
-                idImage = imagenAleatoria,
-                description = stringResource(R.string.imagen_de, user.nombre),
-                modifier = Modifier.size(50.dp)
-            )
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(text = stringResource(R.string.nombre, user.nombre))
-                Text(
-                    text = stringResource(R.string.empresa, user.company.name),
-                    fontSize = 8.sp
+        ListItem(
+            headlineContent = { Text(stringResource(R.string.fullnam, user.nombre, user.apellido)) },
+            supportingContent = { Text(user.company.name, fontSize = 16.sp) },
+            leadingContent = {
+                PerfilImage(
+                    idImage = imagenAleatoria,
+                    description = "",
+                    modifier = Modifier.size(50.dp)
                 )
-            }
-            IconButton(onClick = { onUserClick(user, imagenAleatoria) }) {
+            },
+            trailingContent = {
                 Icon(
                     painter = painterResource(R.drawable.next),
                     contentDescription = "Icono siguiente",
-                    modifier = modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
-        }
+        )
     }
 }
 
