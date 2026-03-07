@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Taller1</string>
+    <string name="nombre">Nombre: %1$s</string>
+    <string name="empresa">Empresa: %1$s</string>
+    <string name="total_de_usuarios">Total de usuarios: %1$d</string>
+    <string name="imagen_de">Imagen de %1$s</string>
+    <string name="detalle_de_usuario">Detalle de Usuario</string>
+    <string name="empresa2">Empresa: %1$s</string>
+    <string name="email">Email: %1$s</string>
+    <string name="edad">Edad: %1$d</string>
+    <string name="altura">Altura: %1$s</string>
+    <string name="peso">Peso: %1$s</string>
+    <string name="universidad">Universidad: %1$s</string>
+    <string name="fullname">%1$s %2$s</string>
+</resources>
