@@ -15,4 +15,5 @@ data class User(
     @SerialName("height") val altura: Float,
     @SerialName("weight") val peso: Float,
     @SerialName("university") val universidad: String,
+    val image: String,
 )

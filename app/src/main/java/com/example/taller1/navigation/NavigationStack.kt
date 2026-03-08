@@ -17,7 +17,7 @@ import com.example.taller1.ui.MainScreen
 import com.example.taller1.ui.UserDetailScreen
 
 @Composable
-fun NavigationStack() {
+fun NavigationStack(onToggleTheme: ()->Unit, isDarkTheme: Boolean) {
 
     val navController = rememberNavController()
     val users = remember { mutableStateOf(listOf<User>()) }
@@ -35,33 +35,30 @@ fun NavigationStack() {
 
         // Destino de navegación MainScreen
         composable(route = Screen.Main.route) {
-            MainScreen(users = users.value, onUserClick = { user, imageId ->
-                navController.navigate(
-                    route = Screen.Detail.route + "?userId=${user.id}&imageId=$imageId"
+            MainScreen(
+                users = users.value,
+                onUserClick = { user ->
+                navController.navigate(Screen.Detail.route + "?userId=${user.id}")},
+                onToggleTheme = onToggleTheme,
+                isDarkTheme = isDarkTheme
                 )
-            })
-        }
+            }
 
         // Destino de navegación UserDetailScreen
         composable(
-            route = Screen.Detail.route + "?userId={userId}&imageId={imageId}",
+            route = Screen.Detail.route + "?userId={userId}",
             arguments = listOf(
                 navArgument(name = "userId") {
                     type = NavType.StringType
                     nullable = true
-                },
-                navArgument(name = "imageId") {
-                    type = NavType.IntType
-                    defaultValue = 0
                 }
             )
         ) {
             val userId = it.arguments?.getString("userId")?.toIntOrNull()
             val user = users.value.find { it.id == userId }
-            val imageId = it.arguments?.getInt("imageId") ?: 0
 
             if (user != null) {
-                UserDetailScreen(user = user, image = imageId, modifier = Modifier.fillMaxSize())
+                UserDetailScreen(user = user, image = user.image, modifier = Modifier.fillMaxSize())
             }
         }
     }

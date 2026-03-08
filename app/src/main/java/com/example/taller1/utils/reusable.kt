@@ -1,32 +1,38 @@
 package com.example.taller1.utils
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.example.taller1.R
 import com.example.taller1.model.User
 import com.example.taller1.ui.Llamada
-
-val imagenes = listOf(
-    R.drawable.p1,
-    R.drawable.p2,
-    R.drawable.p3,
-    R.drawable.p4,
-    R.drawable.p5,
-    R.drawable.p6
-)
+import com.example.taller1.ui.Mail
 
 @Composable
-fun PerfilImage(idImage: Int, description: String, modifier: Modifier = Modifier) {
-    Image(
-        painter = painterResource(idImage),
+fun PerfilImage(url: String, description: String, modifier: Modifier = Modifier) {
+    AsyncImage(
+        model = ImageRequest.Builder(LocalContext.current)
+            .data(url)
+            .crossfade(true)
+            .build(),
+        placeholder = painterResource(R.drawable.p1),
         contentDescription = description,
-        modifier = modifier,
-        contentScale = ContentScale.Crop
+        contentScale = ContentScale.Crop,
+        modifier = modifier.clip(CircleShape),
     )
 }
 
@@ -34,7 +40,7 @@ fun PerfilImage(idImage: Int, description: String, modifier: Modifier = Modifier
 fun InfoUser(user: User) {
     Text(stringResource(R.string.empresa2, user.company.name))
     Llamada(user = user)
-    Text(stringResource(R.string.email, user.mail))
+    Mail(user = user)
     Text(stringResource(R.string.edad, user.edad))
     Text(stringResource(R.string.altura, user.altura))
     Text(stringResource(R.string.peso, user.peso))

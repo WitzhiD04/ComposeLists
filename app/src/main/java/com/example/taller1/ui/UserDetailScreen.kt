@@ -27,6 +27,8 @@ import androidx.compose.foundation.clickable
 import android.net.Uri
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.example.taller1.utils.InfoUser
 
@@ -59,7 +61,7 @@ fun UserText(user: User, modifier: Modifier) {
 }
 
 @Composable
-fun UserData (user: User, image: Int, modifier: Modifier = Modifier) {
+fun UserData (user: User, image: String, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier,
         horizontalAlignment = CenterHorizontally,
@@ -81,9 +83,24 @@ fun UserData (user: User, image: Int, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun UserDetailScreen (user: User, image: Int, modifier: Modifier = Modifier) {
-    Box(modifier = modifier) {
-        PerfilImage(R.drawable.purple, "fondo pantalla", modifier = Modifier.fillMaxSize())
+fun UserDetailScreen (user: User, image: String, modifier: Modifier = Modifier) {
+    Box(modifier = modifier.background(MaterialTheme.colorScheme.surfaceVariant)) {
+        //PerfilImage(image, "fondo pantalla", modifier = Modifier.fillMaxSize())
         UserData(user = user, image = image, modifier = Modifier.fillMaxSize())
     }
+}
+
+@Composable
+fun Mail(user: User){
+    val ctx = LocalContext.current
+    Text(
+        stringResource(R.string.email, user.mail),
+        color = Color.Cyan,
+        modifier = Modifier.clickable {
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:${user.mail}")
+            }
+            ctx.startActivity(intent)
+        }
+    )
 }
